@@ -15,8 +15,10 @@ public class Binprog {
      * 
      * @param args
      *            Command line arguments
+     * @throws FileNotFoundException
+     *             Throws exception on invalid filename
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         if (args.length != 1) {
             throw new IllegalArgumentException();
         }
@@ -36,7 +38,7 @@ public class Binprog {
             }
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new FileNotFoundException();
         }
     }
 }
