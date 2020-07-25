@@ -49,4 +49,11 @@ public class CityTree {
         root = new LeafNode<City>();
         size = 0;
     }
+    
+    /**
+     * Prints the contents of CityTree in preorder
+     */
+    public void printTree() {
+        System.out.print(root.printNode(root, 0, 0, 0, 1024, 1024));
+    }
 }
