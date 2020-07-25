@@ -51,7 +51,7 @@ public class CityTree {
     }
     
     /**
-     * Prints the contents of CityTree in preorder
+     * Prints the contents of CityTree in pre-order
      */
     public void printTree() {
         System.out.print(root.printNode(root, 0, 0, 0, 1024, 1024));
