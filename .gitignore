@@ -3,6 +3,7 @@
 ._*
 .TemporaryItems
 .classpath
+.uuid
 .DS_Store
 Thumbs.db
 /bin/
