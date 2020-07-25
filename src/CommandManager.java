@@ -6,5 +6,9 @@
  * @version 2020.07.25
  */
 public class CommandManager {
-
+    
+    
+    public String[] evaluate(String command) {
+        return new String[0];
+    }
 }
