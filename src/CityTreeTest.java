@@ -50,6 +50,17 @@ public class CityTreeTest extends TestCase {
 
 
     /**
+     * Tests two cities inserted right on cut border.
+     */
+    public void testMiddleEdge() {
+        assertTrue(test.insert(new City("Atlantis", 511, 512)));
+        assertTrue(test.insert(new City("Olympus", 512, 512)));
+        assertTrue(test.insert(new City("Venice", 510, 512)));
+        assertEquals(3, test.length());
+    }
+
+
+    /**
      * This will test the find method of CityTree
      */
     public void testFind() {
