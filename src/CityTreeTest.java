@@ -93,7 +93,7 @@ public class CityTreeTest extends TestCase {
         test.insert(new City("New York", 710, 700));
         test.insert(new City("Ba Sing Se", 700, 710));
 
-        test.printTree();
+        System.out.println(test.printTree());
         assertEquals(multiline("I, 0, 0, 1024, 1024", "  Detriot 20 20",
             "  I, 512, 0, 512, 1024", "    Boston 1000 20",
             "    I, 512, 512, 512, 512", "      I, 512, 512, 256, 512",
