@@ -33,14 +33,13 @@ public class InternalNode<E> implements BaseNode<E> {
 
         String node = new String(new char[level * 2]).replace("\0", " ");
         node += String.format("I, %d, %d, %d, %d\n", x, y, w, h);
-
-        if (level % 2 == 0) { // split the X grid
-            return node + printNode(left, level + 1, x, y, w / 2, h)
-                + printNode(left, level + 1, x + (w / 2), y, w / 2, h);
+        if (level%2 == 0) { //split the X grid
+            return node + printNode(left, level + 1, x, y, w / 2, h) 
+                + printNode(right, level + 1, x + (w / 2), y, w / 2, h);
         }
-        else { // split the Y grid
-            return node + printNode(left, level + 1, x, y, w, h / 2)
-                + printNode(left, level + 1, x, y + (h / 2), w, h / 2);
+        else { //split the Y grid
+            return node + printNode(left, level + 1, x, y, w, h / 2) 
+            + printNode(right, level + 1, x, y + (h / 2), w, h / 2);
         }
     }
 
