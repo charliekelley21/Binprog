@@ -124,11 +124,12 @@ public class CityTree {
                 }
                 // reinserting temp.value() which was the old value, and the
                 // newCity value into the new Internal Node
-                boolean first = insert(newInternalNode, last, temp.value(),
-                    splitY, xcut, ycut, splitdist);
-                boolean second = insert(newInternalNode, last, newCity, splitY,
-                    xcut, ycut, splitdist);
-                return first && second;
+                insert(newInternalNode, last, temp.value(), splitY, xcut, ycut,
+                    splitdist);
+
+                // The second is the only city that can possibly collide.
+                return insert(newInternalNode, last, newCity, splitY, xcut,
+                    ycut, splitdist);
             }
 
         }
