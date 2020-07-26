@@ -110,14 +110,18 @@ public class CityTree {
                     null, new LeafNode<City>(), new LeafNode<City>());
 
                 // this new internal node must be linked to the last parent
-                // node;
-                if (root == last.right()) {
-                    last.setRight(newInternalNode);
+                // node, null implies the root must be switched to internal
+                if (last == null) {
+                    this.root = newInternalNode;
                 }
                 else {
-                    last.setLeft(newInternalNode);
+                    if (root == last.right()) {
+                        last.setRight(newInternalNode);
+                    }
+                    else {
+                        last.setLeft(newInternalNode);
+                    }
                 }
-
                 // reinserting temp.value() which was the old value, and the
                 // newCity value into the new Internal Node
                 boolean first = insert(newInternalNode, last, temp.value(),
@@ -189,6 +193,6 @@ public class CityTree {
      * Prints the contents of CityTree in pre-order
      */
     public void printTree() {
-        System.out.print(root.printNode(root, 0, 0, 0, 1024, 1024));
+        System.out.print(root.printNode(root, 0, 0, 0, WORLDSIZE, WORLDSIZE));
     }
 }
