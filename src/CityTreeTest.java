@@ -45,7 +45,7 @@ public class CityTreeTest extends TestCase {
         assertFalse(test.insert(new City("Hyrule", 69, 420)));
         assertFalse(test.insert(new City("Mushroom Kingdom", 1000, 20)));
         assertFalse(test.insert(new City("Kaer Morhen", 20, 20)));
-        assertTrue(test.insert(new City("Kaer Morhen", 21, 20)));
+        assertTrue(test.insert(new City("White Orchard", 21, 20)));
     }
 
 }
