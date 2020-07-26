@@ -16,6 +16,7 @@ public class CityTreeTest extends TestCase {
      * This is the set up method for the testing.
      */
     public void setUp() {
+        test = new CityTree(new City("testcity", 45, 3));
         test = new CityTree();
     }
 
@@ -25,7 +26,6 @@ public class CityTreeTest extends TestCase {
      */
     public void testInsert() {
         assertTrue(test.insert(new City("Detriot", 20, 20)));
-        test.printTree();
         assertTrue(test.insert(new City("New York", 700, 700)));
         assertTrue(test.insert(new City("Boston", 1000, 20)));
         assertTrue(test.insert(new City("New York", 710, 700)));
@@ -48,4 +48,28 @@ public class CityTreeTest extends TestCase {
         assertTrue(test.insert(new City("White Orchard", 21, 20)));
     }
 
+
+    /**
+     * This will test the find method of CityTree
+     */
+    public void testFind() {
+        test.insert(new City("Detriot", 20, 20));
+        test.insert(new City("New York", 700, 700));
+        test.insert(new City("Boston", 1000, 20));
+        test.insert(new City("New York", 710, 700));
+        test.insert(new City("Ba Sing Se", 700, 710));
+        test.insert(new City("The Shire", 999, 45));
+        test.insert(new City("Cairo", 60, 16));
+        test.insert(new City("Vienna", 69, 420));
+        test.insert(new City("Amsterdam", 420, 69));
+        test.insert(new City("Frankfurt", 20, 111));
+        test.insert(new City("White Orchard", 21, 20));
+
+        assertEquals("Ba Sing Se", test.find(700, 710).getName());
+        assertEquals("Vienna", test.find(69, 420).getName());
+        assertEquals("Frankfurt", test.find(20, 111).getName());
+        assertNull(test.find(34, 896));
+        assertNull(test.find(20, 112));
+        assertNull(test.find(21, 111));
+    }
 }

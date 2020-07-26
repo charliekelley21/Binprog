@@ -64,7 +64,7 @@ public class CityTree {
      * @param root
      *            The current root node of the subtree
      * @param last
-     *            The parent node of the current node
+     *            The parent node of the current root node
      * @param newCity
      *            the new city to be inserted
      * @param splitY
@@ -166,6 +166,87 @@ public class CityTree {
                     return insert(temp.left(), temp, newCity, true, xcut
                         - splitdist, ycut, splitdist);
                 }
+            }
+        }
+    }
+
+
+    /**
+     * The find method for the CityTree, given coordinates it will return the
+     * city or nulls
+     * 
+     * @param x
+     *            x coordinate
+     * @param y
+     *            y coordinate
+     * @return City if found, null otherwise
+     */
+    public City find(int x, int y) {
+        return find(x, y, root, false, WORLDSIZE / 2, WORLDSIZE / 2, WORLDSIZE
+            / 4);
+    }
+
+
+    /**
+     * Recursive implementation for the find method.
+     * 
+     * @param x
+     *            x coordinate
+     * @param y
+     *            y coordinate
+     * @param node
+     *            the current node
+     * @param splitY
+     *            boolean the indicator whether to split on y
+     * @param xcut
+     *            int that remembers where in the subsection we are in for x
+     * @param ycut
+     *            int that remembers where in the subsection we are in for y
+     * @param splitdist
+     *            int that knows how to shift xcut or ycut
+     * @return City if found, null otherwise
+     */
+    private City find(
+        int x,
+        int y,
+        BaseNode<City> node,
+        boolean splitY,
+        int xcut,
+        int ycut,
+        int splitdist) {
+        // reached a leaf node
+        if (node.isLeaf()) {
+            LeafNode<City> leaf = (LeafNode<City>)node;
+            City eval = leaf.value();
+            // flyweight
+            if (eval == null) {
+                return null;
+            }
+            if (eval.getX() == x && eval.getY() == y) {
+                return eval;
+            }
+            return null;
+        }
+        InternalNode<City> intern = (InternalNode<City>)node;
+        // see insert comments for decision making
+        if (splitY) {
+            if (y >= ycut) {
+                return find(x, y, intern.right(), false, xcut, ycut + splitdist,
+                    splitdist / 2);
+            }
+            else {
+                return find(x, y, intern.left(), false, xcut, ycut - splitdist,
+                    splitdist / 2);
+            }
+        }
+        else {
+            if (x >= xcut) {
+                return find(x, y, intern.right(), true, xcut + splitdist, ycut,
+                    splitdist);
+            }
+            else {
+                return find(x, y, intern.left(), true, xcut - splitdist, ycut,
+                    splitdist);
             }
         }
     }
