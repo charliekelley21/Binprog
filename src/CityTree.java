@@ -266,6 +266,8 @@ public class CityTree {
 
 
     private boolean remove(BaseNode<City> rt, int x, int y) {
+        // Interesting case: if we add 1023 1023 and 1022 1023 and remove one of
+        // them we must make a link list like tree into a single node.
         return false;
     }
 
@@ -295,7 +297,9 @@ public class CityTree {
      * @return Printable string of CityTree structure
      */
     public String printTree() {
-        return printNode(root, 0, 0, 0, WORLDSIZE, WORLDSIZE);
+        // want to remove the new line character that isn't needed
+        String tmp = printNode(root, 0, 0, 0, WORLDSIZE, WORLDSIZE);
+        return tmp.substring(0, tmp.length() - 1);
     }
 
 
