@@ -14,53 +14,34 @@ public class InternalNode<E> implements BaseNode<E> {
         left = l;
         right = r;
     }
+    
+    InternalNode() {
+        left = null;
+        right = null;
+    }
 
 
     public boolean isLeaf() {
         return false;
     }
 
-
-    public String printNode(
-        BaseNode<E> rt,
-        int level,
-        int x,
-        int y,
-        int w,
-        int h) {
-        if (rt == null)
-            return "";
-
-        String node = new String(new char[level * 2]).replace("\0", " ");
-        node += String.format("I, %d, %d, %d, %d\n", x, y, w, h);
-        if (level%2 == 0) { //split the X grid
-            return node + printNode(left, level + 1, x, y, w / 2, h) 
-                + printNode(right, level + 1, x + (w / 2), y, w / 2, h);
-        }
-        else { //split the Y grid
-            return node + printNode(left, level + 1, x, y, w, h / 2) 
-            + printNode(right, level + 1, x, y + (h / 2), w, h / 2);
-        }
-    }
-
-
     public E value() {
-        return v;
+        return this.v;
     }
 
 
     public void setValue(E it) {
-        v = it;
+        this.v = it;
     }
 
 
     public BaseNode<E> left() {
-        return left;
+        return this.left;
     }
 
 
     public BaseNode<E> right() {
-        return right;
+        return this.right;
     }
 
 

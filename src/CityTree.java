@@ -250,6 +250,22 @@ public class CityTree {
             }
         }
     }
+    
+    /**
+     * Remove a node with the given coordinates
+     */
+    public boolean remove(int x, int y) {
+        City temp = find(x, y);
+        if (temp == null) {
+            return false;
+        }
+        size--;
+        return remove(root, x, y);
+    }
+    
+    private boolean remove(BaseNode<City> rt, int x, int y) {
+        return false;
+    }
 
 
     /**
@@ -273,8 +289,49 @@ public class CityTree {
 
     /**
      * Prints the contents of CityTree in pre-order
+     * @return Printable string of CityTree structure
      */
-    public void printTree() {
-        System.out.print(root.printNode(root, 0, 0, 0, WORLDSIZE, WORLDSIZE));
+    public String printTree() {
+        return printNode(root, 0, 0, 0, WORLDSIZE, WORLDSIZE);
+    }
+    
+    
+   /**
+    * Print function for a BaseNode<E>
+    * @param rt node that is currently being printed
+    * @param level  current depth of the node being printed
+    * @param x  current X coordinate of grid
+    * @param y  current Y coordinate of grid
+    * @param w  current width of grid
+    * @param h  current height of grid
+    * @return Printable string of the current node and sub-trees
+    */
+    private String printNode(BaseNode<City> rt, int level, int x, int y, int w, int h) {
+        if (rt == null) {
+            return "";
+        }
+        String str = new String(new char[level * 2]).replace("\0", " ");
+        if (rt.isLeaf()) {
+            LeafNode<City> leaf = (LeafNode<City>)rt;
+            if (leaf.value() == null) {
+                str += String.format("E, %d, %d, %d, %d\n", x, y, w, h);
+            }
+            else {
+                str += leaf.value() + "\n";
+            }
+        }
+        else {
+            InternalNode<City> intern = (InternalNode<City>)rt;
+            str += String.format("I, %d, %d, %d, %d\n", x, y, w, h);
+            if (level%2 == 0) { //split the X grid
+                return str + printNode(intern.left(), level + 1, x, y, w / 2, h) 
+                    + printNode(intern.right(), level + 1, x + (w / 2), y, w / 2, h);
+            }
+            else { //split the Y grid
+                return str + printNode(intern.left(), level + 1, x, y, w, h / 2) 
+                + printNode(intern.right(), level + 1, x, y + (h / 2), w, h / 2);
+            }
+        }
+        return str;
     }
 }

@@ -18,12 +18,6 @@ public class LeafNode<E> implements BaseNode<E> {
         return true;
     }
     
-    public String printNode(BaseNode<E> rt, int level, int x, int y, int w, int h) {
-        if (rt == null) return "";
-        // insert logic for a flyweight print
-        return new String(new char[level*2]).replace("\0", " ") + v;
-    }
-    
     public E value() {
         return v;
     }

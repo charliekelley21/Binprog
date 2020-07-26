@@ -6,5 +6,4 @@
  */
 public interface BaseNode<E> {
     public boolean isLeaf();
-    public String printNode(BaseNode<E> rt, int level, int x, int y, int w, int h);
 }
