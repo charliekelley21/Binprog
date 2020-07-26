@@ -46,6 +46,18 @@ public class CityTreeTest extends TestCase {
         assertFalse(test.insert(new City("Mushroom Kingdom", 1000, 20)));
         assertFalse(test.insert(new City("Kaer Morhen", 20, 20)));
         assertTrue(test.insert(new City("White Orchard", 21, 20)));
+        test.printTree();
+    }
+
+
+    /**
+     * Tests two cities inserted right on cut border.
+     */
+    public void testMiddleEdge() {
+        assertTrue(test.insert(new City("Atlantis", 511, 512)));
+        assertTrue(test.insert(new City("Olympus", 512, 512)));
+        assertTrue(test.insert(new City("Venice", 510, 512)));
+        assertEquals(3, test.length());
     }
 
 
