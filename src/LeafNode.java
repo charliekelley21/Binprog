@@ -30,5 +30,13 @@ public class LeafNode<E> implements BaseNode<E> {
     public void setValue(E it) {
         v = it;
     }
+    
+    public BaseNode<E> left() {
+        return null;
+    }
+    
+    public BaseNode<E> right() {
+        return null;
+    }
 
 }

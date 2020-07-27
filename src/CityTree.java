@@ -110,7 +110,7 @@ public class CityTree {
                 }
 
                 InternalNode<City> newInternalNode = new InternalNode<City>(
-                    null, new LeafNode<City>(), new LeafNode<City>());
+                    new LeafNode<City>(), new LeafNode<City>());
 
                 // this new internal node must be linked to the last parent
                 // node, null implies the root must be switched to internal
@@ -288,8 +288,7 @@ public class CityTree {
             return false;
         }
         size--;
-        remove(root, x, y, false, WORLDSIZE / 2, WORLDSIZE / 2, WORLDSIZE
-            / 4);
+        remove(root, x, y, false, WORLDSIZE / 2, WORLDSIZE / 2, WORLDSIZE / 4);
         return true;
     }
 
@@ -313,25 +312,28 @@ public class CityTree {
         // see insert comments for decision making
         if (splitY) {
             if (y >= ycut) {
-                intern.setRight(remove(intern.right(), x, y, false, xcut, ycut + splitdist, splitdist / 2));
+                intern.setRight(remove(intern.right(), x, y, false, xcut, ycut
+                    + splitdist, splitdist / 2));
             }
             else {
-                intern.setLeft(remove(intern.left(), x, y, false, xcut, ycut - splitdist, splitdist / 2));
+                intern.setLeft(remove(intern.left(), x, y, false, xcut, ycut
+                    - splitdist, splitdist / 2));
             }
         }
         else {
             if (x >= xcut) {
-                intern.setRight(remove(intern.right(), x, y, true, xcut + splitdist, ycut, splitdist));
+                intern.setRight(remove(intern.right(), x, y, true, xcut
+                    + splitdist, ycut, splitdist));
             }
             else {
-                intern.setLeft(remove(intern.left(), x, y, true, xcut - splitdist, ycut, splitdist));
+                intern.setLeft(remove(intern.left(), x, y, true, xcut
+                    - splitdist, ycut, splitdist));
             }
         }
-        if (intern.left() == flyWeight && intern.right().isLeaf()) {
-            rt = intern.right();
-        }
-        else if (intern.right() == flyWeight && intern.left().isLeaf()) {
-            rt = intern.left();
+        if (intern.left().isLeaf() && intern.right().isLeaf()) {
+
+            LeafNode<City> leftLeaf = (LeafNode<City>)intern.left();
+            rt = (leftLeaf.value() == null) ? intern.right() : intern.left();
         }
         return rt;
     }

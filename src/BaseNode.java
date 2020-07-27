@@ -9,5 +9,17 @@
  *            type to be store in BaseNode
  */
 public interface BaseNode<E> {
+    /**
+     * Determines if the node is a leaf node
+     * 
+     * @return true if the node is a leafNode
+     */
     public boolean isLeaf();
+    
+    public BaseNode<E> left();
+    
+    public BaseNode<E> right();
+    
+    public E value();
+
 }

@@ -5,12 +5,10 @@
  * @version 2020.07.25
  */
 public class InternalNode<E> implements BaseNode<E> {
-    private E v; // might not be needed
     private BaseNode<E> left;
     private BaseNode<E> right;
 
-    InternalNode(E newValue, BaseNode<E> l, BaseNode<E> r) {
-        v = newValue;
+    InternalNode(BaseNode<E> l, BaseNode<E> r) {
         left = l;
         right = r;
     }
@@ -24,16 +22,6 @@ public class InternalNode<E> implements BaseNode<E> {
 
     public boolean isLeaf() {
         return false;
-    }
-
-
-    public E value() {
-        return this.v;
-    }
-
-
-    public void setValue(E it) {
-        this.v = it;
     }
 
 
@@ -54,6 +42,10 @@ public class InternalNode<E> implements BaseNode<E> {
 
     public void setRight(BaseNode<E> newRight) {
         this.right = newRight;
+    }
+    
+    public E value() {
+        return null;
     }
 
 }
