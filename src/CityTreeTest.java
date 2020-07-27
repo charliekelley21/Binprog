@@ -86,6 +86,9 @@ public class CityTreeTest extends TestCase {
     }
 
 
+    /**
+     * This method tests CityTree's print function
+     */
     public void testPrint() {
         test.insert(new City("Detriot", 20, 20));
         test.insert(new City("New York", 700, 700));
@@ -106,5 +109,20 @@ public class CityTreeTest extends TestCase {
             "                Ba Sing Se 700 710",
             "              New York 710 700", "        E, 512, 768, 256, 256",
             "      E, 768, 512, 256, 512"), systemOut().getHistory());
+    }
+
+
+    /**
+     * This method tests CityTree's clear function
+     */
+    public void testClear() {
+        test.insert(new City("Detriot", 20, 20));
+        test.insert(new City("New York", 700, 700));
+        test.insert(new City("Boston", 1000, 20));
+        test.insert(new City("New York", 710, 700));
+        test.insert(new City("Ba Sing Se", 700, 710));
+        test.clear();
+        assertEquals(0, test.length());
+        assertNull(test.find(700, 700));
     }
 }

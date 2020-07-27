@@ -327,9 +327,6 @@ public class CityTree {
         int y,
         int w,
         int h) {
-        if (rt == null) {
-            return "";
-        }
         String str = new String(new char[level * 2]).replace("\0", " ");
         if (rt.isLeaf()) {
             LeafNode<City> leaf = (LeafNode<City>)rt;
