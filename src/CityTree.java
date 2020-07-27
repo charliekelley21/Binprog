@@ -12,6 +12,7 @@ public class CityTree {
 
     // Setting up local vars.
     private BaseNode<City> root;
+    private LeafNode<City> flyWeight;
     private int size;
     private final int WORLDSIZE = 1024;
 
@@ -20,6 +21,7 @@ public class CityTree {
      */
     public CityTree() {
         root = new LeafNode<City>();
+        flyWeight = new LeafNode<City>();
         size = 0;
     }
 
@@ -29,6 +31,7 @@ public class CityTree {
      */
     public CityTree(City c) {
         root = new LeafNode<City>();
+        flyWeight = new LeafNode<City>();
         size = 1;
     }
 
@@ -304,6 +307,7 @@ public class CityTree {
         }
         if (rt.isLeaf()) {
             // node to be removed
+            rt = flyWeight;
         }
         InternalNode<City> intern = (InternalNode<City>)rt;
         // see insert comments for decision making
@@ -317,13 +321,13 @@ public class CityTree {
         }
         else {
             if (x >= xcut) {
-                intern.setRight(remove(intern.right(), x, y, true, xcut + splitdist, ycut, splitdist / 2));
+                intern.setRight(remove(intern.right(), x, y, true, xcut + splitdist, ycut, splitdist));
             }
             else {
-                intern.setLeft(remove(intern.left(), x, y, true, xcut - splitdist, ycut, splitdist / 2));
+                intern.setLeft(remove(intern.left(), x, y, true, xcut - splitdist, ycut, splitdist));
             }
         }
-        return null;
+        return rt;
     }
 
 
