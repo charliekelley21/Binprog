@@ -1,3 +1,4 @@
+
 /**
  * The interface that our two Node types will be built off of.
  * 
