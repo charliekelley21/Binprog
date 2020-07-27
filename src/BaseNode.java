@@ -15,11 +15,20 @@ public interface BaseNode<E> {
      * @return true if the node is a leafNode
      */
     public boolean isLeaf();
-    
+
+
     public BaseNode<E> left();
-    
+
+
     public BaseNode<E> right();
-    
+
+
+    public void setLeft(BaseNode<E> newLeft);
+
+
+    public void setRight(BaseNode<E> newRight);
+
+
     public E value();
 
 }

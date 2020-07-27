@@ -38,5 +38,14 @@ public class LeafNode<E> implements BaseNode<E> {
     public BaseNode<E> right() {
         return null;
     }
+    
+    public void setLeft(BaseNode<E> newLeft) { // raise exception
+        return;
+    }
+
+
+    public void setRight(BaseNode<E> newRight) {
+        return;
+    }
 
 }

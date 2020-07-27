@@ -43,7 +43,8 @@ public class InternalNode<E> implements BaseNode<E> {
     public void setRight(BaseNode<E> newRight) {
         this.right = newRight;
     }
-    
+
+
     public E value() {
         return null;
     }

@@ -304,37 +304,41 @@ public class CityTree {
         if (rt == null) {
             return null;
         }
+        // if a leaf node is reached, it is the node to remove
         if (rt.isLeaf()) {
-            // node to be removed
-            return rt = flyWeight;
+            rt = flyWeight;
         }
-        InternalNode<City> intern = (InternalNode<City>)rt;
-        // see insert comments for decision making
-        if (splitY) {
-            if (y >= ycut) {
-                intern.setRight(remove(intern.right(), x, y, false, xcut, ycut
-                    + splitdist, splitdist / 2));
-            }
-            else {
-                intern.setLeft(remove(intern.left(), x, y, false, xcut, ycut
-                    - splitdist, splitdist / 2));
-            }
-        }
+        // else traverse the internal node
         else {
-            if (x >= xcut) {
-                intern.setRight(remove(intern.right(), x, y, true, xcut
-                    + splitdist, ycut, splitdist));
+            // see insert comments for decision making
+            if (splitY) {
+                if (y >= ycut) {
+                    rt.setRight(remove(rt.right(), x, y, false, xcut, ycut
+                        + splitdist, splitdist / 2));
+                }
+                else {
+                    rt.setLeft(remove(rt.left(), x, y, false, xcut, ycut
+                        - splitdist, splitdist / 2));
+                }
             }
             else {
-                intern.setLeft(remove(intern.left(), x, y, true, xcut
-                    - splitdist, ycut, splitdist));
+                if (x >= xcut) {
+                    rt.setRight(remove(rt.right(), x, y, true, xcut + splitdist,
+                        ycut, splitdist));
+                }
+                else {
+                    rt.setLeft(remove(rt.left(), x, y, true, xcut - splitdist,
+                        ycut, splitdist));
+                }
+            }
+            // In the case that an internal node must be removed to remove a
+            // partition in the grid then we must find the value to replace to
+            // internal node with.
+            if (rt.left().isLeaf() && rt.right().isLeaf()) {
+                rt = (rt.left().value() == null) ? rt.right() : rt.left();
             }
         }
-        if (intern.left().isLeaf() && intern.right().isLeaf()) {
-
-            LeafNode<City> leftLeaf = (LeafNode<City>)intern.left();
-            rt = (leftLeaf.value() == null) ? intern.right() : intern.left();
-        }
+        // unwind the recursion and return the rt node
         return rt;
     }
 
@@ -420,4 +424,5 @@ public class CityTree {
         }
         return str;
     }
+
 }
