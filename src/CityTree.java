@@ -301,9 +301,6 @@ public class CityTree {
         int xcut,
         int ycut,
         int splitdist) {
-        if (rt == null) {
-            return null;
-        }
         // if a leaf node is reached, it is the node to remove
         if (rt.isLeaf()) {
             return flyWeight;
