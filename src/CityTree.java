@@ -20,8 +20,8 @@ public class CityTree {
      * This is the default zero information instantiation of CityTree
      */
     public CityTree() {
-        root = new LeafNode<City>();
         flyWeight = new LeafNode<City>();
+        root = flyWeight;
         size = 0;
     }
 
@@ -30,8 +30,8 @@ public class CityTree {
      * This is the default one city information instantiation of CityTree
      */
     public CityTree(City c) {
-        root = new LeafNode<City>();
         flyWeight = new LeafNode<City>();
+        root = new LeafNode<City>(c);
         size = 1;
     }
 
@@ -83,7 +83,7 @@ public class CityTree {
      */
     private boolean insert(
         BaseNode<City> root,
-        InternalNode<City> last,
+        BaseNode<City> last,
         City newCity,
         boolean splitY,
         int xcut,
@@ -92,10 +92,9 @@ public class CityTree {
 
         // test if root is leaf
         if (root.isLeaf() == true) {
-            LeafNode<City> temp = (LeafNode<City>)root;
             // if flyweight
-            if (temp.value() == null) {
-                temp.setValue(newCity);
+            if (root == flyWeight) {
+                root = new LeafNode<City>(newCity);
                 return true;
             }
             else {
@@ -104,13 +103,12 @@ public class CityTree {
                 // false if not equal we need to change the leafnode to a
                 // internalnode , give it two leafnode children, and call
                 // insert on both of the colliding nodes.
-                if (temp.value().getX() == newCity.getX() && temp.value()
-                    .getY() == newCity.getY()) {
+                if (root.value().equals(newCity)) {
                     return false;
                 }
 
                 InternalNode<City> newInternalNode = new InternalNode<City>(
-                    new LeafNode<City>(), new LeafNode<City>());
+                    flyWeight, flyWeight);
 
                 // this new internal node must be linked to the last parent
                 // node, null implies the root must be switched to internal
@@ -127,7 +125,7 @@ public class CityTree {
                 }
                 // reinserting temp.value() which was the old value, and the
                 // newCity value into the new Internal Node
-                insert(newInternalNode, last, temp.value(), splitY, xcut, ycut,
+                insert(newInternalNode, last, root.value(), splitY, xcut, ycut,
                     splitdist);
 
                 // The second is the only city that can possibly collide.
@@ -139,19 +137,18 @@ public class CityTree {
         else {
             // the root is an internal node, and we need to find out which way
             // to traverse the tree
-            InternalNode<City> temp = (InternalNode<City>)root;
             if (splitY) {
                 if (newCity.getY() >= ycut) {
                     // shift ycut up, change to xcut, on y cuts we halve the
                     // split distance also
                     // we also got to root's right, but first we need to case it
-                    return insert(temp.right(), temp, newCity, false, xcut, ycut
+                    return insert(root.right(), root, newCity, false, xcut, ycut
                         + splitdist, splitdist / 2);
                 }
                 else {
                     // The same as before, only going left and subtracting
                     // splitdist from ycut
-                    return insert(temp.left(), temp, newCity, false, xcut, ycut
+                    return insert(root.left(), root, newCity, false, xcut, ycut
                         - splitdist, splitdist / 2);
                 }
             }
@@ -160,13 +157,13 @@ public class CityTree {
                     // shift ycut up, change to xcut, on y cuts we halve the
                     // split distance also
                     // we also got to root's right, but first we need to case it
-                    return insert(temp.right(), temp, newCity, true, xcut
+                    return insert(root.right(), root, newCity, true, xcut
                         + splitdist, ycut, splitdist);
                 }
                 else {
                     // The same as before, only going left and subtracting
                     // splitdist from ycut
-                    return insert(temp.left(), temp, newCity, true, xcut
+                    return insert(root.left(), root, newCity, true, xcut
                         - splitdist, ycut, splitdist);
                 }
             }
