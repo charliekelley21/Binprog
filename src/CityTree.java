@@ -6,7 +6,7 @@
  * 
  * @author Charlie Kelley (charlk21)
  * @author Barak Finnegan (bjfinn98)
- * @version 2020.07.25
+ * @version 2020.07.26
  */
 public class CityTree {
 
@@ -168,6 +168,30 @@ public class CityTree {
                 }
             }
         }
+    }
+
+
+    /**
+     * This searches for what cities are in a given range and returns a
+     * SearchResult based on this nodes it visited and the Cities it visited
+     * 
+     * @param x
+     *            specifies the smallest x coordinate
+     * @param y
+     *            specifies the smallest y coordinate
+     * @param w
+     *            specifies the width, such that the largest x coordinate is x +
+     *            w
+     * @param h
+     *            specifies the height, such that the largest y coordinate is y
+     *            + h
+     */
+    public SearchResult regionSearch(int x, int y, int w, int h) {
+        // find number of cities in range using helper method
+        int cityNum = 10;
+        SearchResult ans = new SearchResult(cityNum);
+        // use helper recursive method to solve for actual cityNum
+        return null;
     }
 
 
