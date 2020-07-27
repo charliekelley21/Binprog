@@ -307,7 +307,7 @@ public class CityTree {
         }
         if (rt.isLeaf()) {
             // node to be removed
-            rt = flyWeight;
+            return rt = flyWeight;
         }
         InternalNode<City> intern = (InternalNode<City>)rt;
         // see insert comments for decision making
@@ -326,6 +326,12 @@ public class CityTree {
             else {
                 intern.setLeft(remove(intern.left(), x, y, true, xcut - splitdist, ycut, splitdist));
             }
+        }
+        if (intern.left() == flyWeight && intern.right().isLeaf()) {
+            rt = intern.right();
+        }
+        else if (intern.right() == flyWeight && intern.left().isLeaf()) {
+            rt = intern.left();
         }
         return rt;
     }
