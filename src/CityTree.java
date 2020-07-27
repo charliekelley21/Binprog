@@ -285,14 +285,45 @@ public class CityTree {
             return false;
         }
         size--;
-        return remove(root, x, y);
+        remove(root, x, y, false, WORLDSIZE / 2, WORLDSIZE / 2, WORLDSIZE
+            / 4);
+        return true;
     }
 
 
-    private boolean remove(BaseNode<City> rt, int x, int y) {
-        // Interesting case: if we add 1023 1023 and 1022 1023 and remove one of
-        // them we must make a link list like tree into a single node.
-        return false;
+    private BaseNode<City> remove(
+        BaseNode<City> rt,
+        int x,
+        int y,
+        boolean splitY,
+        int xcut,
+        int ycut,
+        int splitdist) {
+        if (rt == null) {
+            return null;
+        }
+        if (rt.isLeaf()) {
+            // node to be removed
+        }
+        InternalNode<City> intern = (InternalNode<City>)rt;
+        // see insert comments for decision making
+        if (splitY) {
+            if (y >= ycut) {
+                intern.setRight(remove(intern.right(), x, y, false, xcut, ycut + splitdist, splitdist / 2));
+            }
+            else {
+                intern.setLeft(remove(intern.left(), x, y, false, xcut, ycut - splitdist, splitdist / 2));
+            }
+        }
+        else {
+            if (x >= xcut) {
+                intern.setRight(remove(intern.right(), x, y, true, xcut + splitdist, ycut, splitdist / 2));
+            }
+            else {
+                intern.setLeft(remove(intern.left(), x, y, true, xcut - splitdist, ycut, splitdist / 2));
+            }
+        }
+        return null;
     }
 
 

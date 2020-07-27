@@ -14,7 +14,8 @@ public class InternalNode<E> implements BaseNode<E> {
         left = l;
         right = r;
     }
-    
+
+
     InternalNode() {
         left = null;
         right = null;
@@ -24,6 +25,7 @@ public class InternalNode<E> implements BaseNode<E> {
     public boolean isLeaf() {
         return false;
     }
+
 
     public E value() {
         return this.v;

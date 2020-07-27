@@ -5,7 +5,8 @@
  * @author Charlie Kelley (charlk21)
  * @version 2020.07.25
  * 
- * @param <E> type to be store in BaseNode
+ * @param <E>
+ *            type to be store in BaseNode
  */
 public interface BaseNode<E> {
     public boolean isLeaf();
