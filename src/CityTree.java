@@ -306,37 +306,39 @@ public class CityTree {
         }
         // if a leaf node is reached, it is the node to remove
         if (rt.isLeaf()) {
-            rt = flyWeight;
+            return flyWeight;
         }
         // else traverse the internal node
-        else {
-            // see insert comments for decision making
-            if (splitY) {
-                if (y >= ycut) {
-                    rt.setRight(remove(rt.right(), x, y, false, xcut, ycut
-                        + splitdist, splitdist / 2));
-                }
-                else {
-                    rt.setLeft(remove(rt.left(), x, y, false, xcut, ycut
-                        - splitdist, splitdist / 2));
-                }
+
+        // see insert comments for decision making
+        if (splitY) {
+            if (y >= ycut) {
+                rt.setRight(remove(rt.right(), x, y, false, xcut, ycut
+                    + splitdist, splitdist / 2));
             }
             else {
-                if (x >= xcut) {
-                    rt.setRight(remove(rt.right(), x, y, true, xcut + splitdist,
-                        ycut, splitdist));
-                }
-                else {
-                    rt.setLeft(remove(rt.left(), x, y, true, xcut - splitdist,
-                        ycut, splitdist));
-                }
+                rt.setLeft(remove(rt.left(), x, y, false, xcut, ycut
+                    - splitdist, splitdist / 2));
             }
-            // In the case that an internal node must be removed to remove a
-            // partition in the grid then we must find the value to replace to
-            // internal node with.
-            if (rt.left().isLeaf() && rt.right().isLeaf()) {
-                rt = (rt.left().value() == null) ? rt.right() : rt.left();
+        }
+        else {
+            if (x >= xcut) {
+                rt.setRight(remove(rt.right(), x, y, true, xcut + splitdist,
+                    ycut, splitdist));
             }
+            else {
+                rt.setLeft(remove(rt.left(), x, y, true, xcut - splitdist, ycut,
+                    splitdist));
+            }
+        }
+        // In the case that an internal node must be removed to remove a
+        // partition in the grid then we must find the value to replace to
+        // internal node with.
+        if (rt.left() == flyWeight) {
+            rt = rt.right();
+        }
+        else if (rt.right() == flyWeight) {
+            rt = rt.left();
         }
         // unwind the recursion and return the rt node
         return rt;
