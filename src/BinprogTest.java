@@ -41,8 +41,8 @@ public class BinprogTest extends TestCase {
             "        E, 0, 256, 256, 256", "      E, 256, 0, 256, 512",
             "    E, 0, 512, 512, 512", "  E, 512, 0, 512, 1024",
             ">I am the very model of a modern Major-General",
-            "ERROR! Unrecognized command: I am the very model of a modern Major-General"),
-            systemOut().getHistory());
+            "ERROR! Unrecognized command: I am the very model of"
+                + " a modern Major-General"), systemOut().getHistory());
     }
 
 

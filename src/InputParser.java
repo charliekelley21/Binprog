@@ -43,6 +43,7 @@ public class InputParser {
      * 
      * @throws FileNotFoundException
      *             should be impossible
+     * 
      */
     private void assignFileLength() throws FileNotFoundException {
         @SuppressWarnings("resource")
@@ -65,6 +66,8 @@ public class InputParser {
      * text file
      * 
      * @throws FileNotFoundException
+     *             whether the file was found
+     * @return String[] the items in the TextFile
      */
     public String[] readTextFile() throws FileNotFoundException {
         @SuppressWarnings("resource")

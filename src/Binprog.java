@@ -23,15 +23,15 @@ public class Binprog {
             throw new IllegalArgumentException();
         }
         InputParser parse = null;
-        CommandManager CM = new CommandManager();
+        CommandManager cm = new CommandManager();
         // attempt to initialize parse and complete program
         try {
             parse = new InputParser(args[0]);
             String[] lines = parse.readTextFile();
             for (int i = 0; i < lines.length; i++) {
-                String[] toPrint = CM.evaluate(lines[i]);
+                String[] toPrint = cm.evaluate(lines[i]);
                 for (int j = 0; j < toPrint.length; j++) {
-                    if (toPrint[j] != "") {
+                    if (!toPrint[j].equals("")) {
                         System.out.println(toPrint[j]);
                     }
                 }

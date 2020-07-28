@@ -23,7 +23,7 @@ public class LeafNodeTest extends TestCase {
         assertNull(d.value());
 
         d = new LeafNode<Integer>(45);
-        assertTrue(d.value() == 45);
+        assertEquals(45, d.value().intValue());
     }
 
 

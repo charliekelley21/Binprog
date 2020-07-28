@@ -17,18 +17,43 @@ public interface BaseNode<E> {
     public boolean isLeaf();
 
 
+    /**
+     * This is going to be the left node of the BaseNode
+     * 
+     * @return BaseNode's left node
+     */
     public BaseNode<E> left();
 
 
+    /**
+     * This is going to be the right node of the BaseNode
+     * 
+     * @return BaseNode's right node
+     */
     public BaseNode<E> right();
 
 
+    /**
+     * This is going to set the left node of BaseNode
+     * 
+     * @return BaseNode's left node
+     */
     public void setLeft(BaseNode<E> newLeft);
 
 
+    /**
+     * This is going to set the right node of BaseNode
+     * 
+     * @return BaseNode's right node
+     */
     public void setRight(BaseNode<E> newRight);
 
 
+    /**
+     * The value of the BaseNode
+     * 
+     * @return the value of the BaseNode
+     */
     public E value();
 
 }

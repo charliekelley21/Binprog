@@ -79,7 +79,7 @@ public class City {
      * 
      * @return boolean based on whether the object in parameter is equal to this
      *         object
-     * @param object
+     * @param other
      *            the object to be compare to this object
      */
     public boolean equals(Object other) {

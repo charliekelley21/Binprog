@@ -15,7 +15,7 @@ public class CityTree {
     private LeafNode<City> flyWeight;
     private SearchResult search;
     private int size;
-    private final int WORLDSIZE = 1024;
+    private final int worldSize = 1024;
 
     /**
      * This is the default zero information instantiation of CityTree
@@ -29,6 +29,9 @@ public class CityTree {
 
     /**
      * This is the default one city information instantiation of CityTree
+     * 
+     * @param City
+     *            An initial City to add to the CityTree
      */
     public CityTree(City c) {
         flyWeight = new LeafNode<City>();
@@ -45,15 +48,15 @@ public class CityTree {
      * @return boolean telling if the insertion was performed.
      */
     public boolean insert(City newCity) {
-        if (newCity.getX() >= WORLDSIZE || newCity.getX() < 0 || newCity
-            .getY() >= WORLDSIZE || newCity.getY() < 0) {
+        if (newCity.getX() >= worldSize || newCity.getX() < 0 || newCity
+            .getY() >= worldSize || newCity.getY() < 0) {
             return false;
         }
         // the split boolean carries info as to which axis to cut in half.
         // we split along the x axis first, the ints will remember the slice
         // location.
-        boolean answer = insert(root, null, false, newCity, false, WORLDSIZE
-            / 2, WORLDSIZE / 2, WORLDSIZE / 4);
+        boolean answer = insert(root, null, false, newCity, false, worldSize
+            / 2, worldSize / 2, worldSize / 4);
         if (answer) {
             size++;
             return true;
@@ -65,7 +68,7 @@ public class CityTree {
     /**
      * Recursive helper method for the insert method
      * 
-     * @param root
+     * @param rt
      *            The current root node of the subtree
      * @param last
      *            The parent node of the current root node
@@ -85,7 +88,7 @@ public class CityTree {
      *         coordinates already exist)
      */
     private boolean insert(
-        BaseNode<City> root,
+        BaseNode<City> rt,
         BaseNode<City> last,
         boolean parentsRight,
         City newCity,
@@ -95,24 +98,24 @@ public class CityTree {
         int splitdist) {
 
         // test if root is leaf
-        if (root.isLeaf() == true) {
+        if (rt.isLeaf()) {
             // if flyweight
-            if (root == flyWeight) {
-                root = new LeafNode<City>(newCity);
+            if (rt == flyWeight) {
+                rt = new LeafNode<City>(newCity);
                 // need to correctly insert newly generated LeafNode
                 if (parentsRight) {
-                    last.setRight(root);
+                    last.setRight(rt);
                 }
                 else {
-                    last.setLeft(root);
+                    last.setLeft(rt);
                 }
                 return true;
             }
             else {
                 // could potentially be the this.root node
                 // if empty and root, we would like to simply reassign
-                if (root == this.root && size == 0) {
-                    this.root = new LeafNode<City>(newCity);
+                if (rt == root && size == 0) {
+                    root = new LeafNode<City>(newCity);
                     return true;
                 }
 
@@ -121,7 +124,7 @@ public class CityTree {
                 // false if not equal we need to change the leafnode to a
                 // internalnode , give it two leafnode children, and call
                 // insert on both of the colliding nodes.
-                if (root.value().getX() == newCity.getX() && root.value()
+                if (rt.value().getX() == newCity.getX() && rt.value()
                     .getY() == newCity.getY()) {
                     return false;
                 }
@@ -132,7 +135,7 @@ public class CityTree {
                 // this new internal node must be linked to the last parent
                 // node, null implies the root must be switched to internal
                 if (last == null) {
-                    this.root = newInternalNode;
+                    root = newInternalNode;
                 }
                 else {
                     if (parentsRight) {
@@ -144,8 +147,8 @@ public class CityTree {
                 }
                 // reinserting temp.value() which was the old value, and the
                 // newCity value into the new Internal Node
-                insert(newInternalNode, last, parentsRight, root.value(),
-                    splitY, xcut, ycut, splitdist);
+                insert(newInternalNode, last, parentsRight, rt.value(), splitY,
+                    xcut, ycut, splitdist);
 
                 // The second is the only city that can possibly collide.
                 return insert(newInternalNode, last, parentsRight, newCity,
@@ -161,14 +164,14 @@ public class CityTree {
                     // shift ycut up, change to xcut, on y cuts we halve the
                     // split distance also
                     // we also got to root's right, but first we need to case it
-                    return insert(root.right(), root, true, newCity, false,
-                        xcut, ycut + splitdist, splitdist / 2);
+                    return insert(rt.right(), rt, true, newCity, false, xcut,
+                        ycut + splitdist, splitdist / 2);
                 }
                 else {
                     // The same as before, only going left and subtracting
                     // splitdist from ycut
-                    return insert(root.left(), root, false, newCity, false,
-                        xcut, ycut - splitdist, splitdist / 2);
+                    return insert(rt.left(), rt, false, newCity, false, xcut,
+                        ycut - splitdist, splitdist / 2);
                 }
             }
             else {
@@ -176,13 +179,13 @@ public class CityTree {
                     // shift ycut up, change to xcut, on y cuts we halve the
                     // split distance also
                     // we also got to root's right, but first we need to case it
-                    return insert(root.right(), root, true, newCity, true, xcut
+                    return insert(rt.right(), rt, true, newCity, true, xcut
                         + splitdist, ycut, splitdist);
                 }
                 else {
                     // The same as before, only going left and subtracting
                     // splitdist from ycut
-                    return insert(root.left(), root, false, newCity, true, xcut
+                    return insert(rt.left(), rt, false, newCity, true, xcut
                         - splitdist, ycut, splitdist);
                 }
             }
@@ -204,20 +207,21 @@ public class CityTree {
      * @param h
      *            specifies the height, such that the largest y coordinate is y
      *            + h
+     * @return SearchResult this is the answer to the search
      */
     public SearchResult regionSearch(int x, int y, int w, int h) {
         // find number of cities in range using helper method
         // outside world size
-        if (x > WORLDSIZE || y > WORLDSIZE || x + w < 0 || y + h < 0
+        if (x > worldSize || y > worldSize || x + w < 0 || y + h < 0
             || size == 0) {
             return null;
         }
         // fix parameters
-        if (x + w > WORLDSIZE) {
-            w = WORLDSIZE - x;
+        if (x + w > worldSize) {
+            w = worldSize - x;
         }
-        if (y + h > WORLDSIZE) {
-            h = WORLDSIZE - y;
+        if (y + h > worldSize) {
+            h = worldSize - y;
         }
         if (x < 0) {
             w = w + x;
@@ -228,8 +232,8 @@ public class CityTree {
             y = 0;
         }
         search = new SearchResult(size);
-        regionSearch(root, false, x, y, w, h, WORLDSIZE / 2, WORLDSIZE / 2,
-            WORLDSIZE / 4);
+        regionSearch(root, false, x, y, w, h, worldSize / 2, worldSize / 2,
+            worldSize / 4);
         search.snip();
         return search;
     }
@@ -239,7 +243,7 @@ public class CityTree {
      * This searches for what cities are in a given range and returns a
      * SearchResult based on this nodes it visited and the Cities it visited
      * 
-     * @param root
+     * @param rt
      *            current node we are searching through
      * @param x
      *            specifies the smallest x coordinate
@@ -253,7 +257,7 @@ public class CityTree {
      *            + h
      */
     private void regionSearch(
-        BaseNode<City> root,
+        BaseNode<City> rt,
         boolean splitY,
         int x,
         int y,
@@ -264,10 +268,10 @@ public class CityTree {
         int splitdist) {
         // base case
         search.nodeVisit();
-        if (root.isLeaf()) {
+        if (rt.isLeaf()) {
             // check if we are at valid leaf
-            if (root != flyWeight) {
-                City temp = root.value();
+            if (rt != flyWeight) {
+                City temp = rt.value();
                 if (temp.getX() >= x && temp.getX() <= x + w && temp.getY() >= y
                     && temp.getY() <= y + h) {
                     search.insert(temp);
@@ -282,34 +286,34 @@ public class CityTree {
                 // a punctured region where we need to traverse down left and
                 // right.
                 if (y >= ycut) {
-                    regionSearch(root.right(), false, x, y, w, h, xcut, ycut
+                    regionSearch(rt.right(), false, x, y, w, h, xcut, ycut
                         + splitdist, splitdist / 2);
                 }
                 else if (y + h <= ycut) {
-                    regionSearch(root.left(), false, x, y, w, h, xcut, ycut
+                    regionSearch(rt.left(), false, x, y, w, h, xcut, ycut
                         - splitdist, splitdist / 2);
                 }
                 else {
-                    regionSearch(root.right(), false, x, y, w, h, xcut, ycut
+                    regionSearch(rt.right(), false, x, y, w, h, xcut, ycut
                         + splitdist, splitdist / 2);
-                    regionSearch(root.left(), false, x, y, w, h, xcut, ycut
+                    regionSearch(rt.left(), false, x, y, w, h, xcut, ycut
                         - splitdist, splitdist / 2);
                 }
             }
             else {
                 if (x >= xcut) {
-                    regionSearch(root.right(), true, x, y, w, h, xcut
-                        + splitdist, ycut, splitdist);
+                    regionSearch(rt.right(), true, x, y, w, h, xcut + splitdist,
+                        ycut, splitdist);
                 }
                 else if (x + w <= xcut) {
-                    regionSearch(root.left(), true, x, y, w, h, xcut
-                        - splitdist, ycut, splitdist);
+                    regionSearch(rt.left(), true, x, y, w, h, xcut - splitdist,
+                        ycut, splitdist);
                 }
                 else {
-                    regionSearch(root.right(), true, x, y, w, h, xcut
-                        + splitdist, ycut, splitdist);
-                    regionSearch(root.left(), true, x, y, w, h, xcut
-                        - splitdist, ycut, splitdist);
+                    regionSearch(rt.right(), true, x, y, w, h, xcut + splitdist,
+                        ycut, splitdist);
+                    regionSearch(rt.left(), true, x, y, w, h, xcut - splitdist,
+                        ycut, splitdist);
                 }
             }
         }
@@ -327,7 +331,7 @@ public class CityTree {
      * @return City if found, null otherwise
      */
     public City find(int x, int y) {
-        return find(x, y, root, false, WORLDSIZE / 2, WORLDSIZE / 2, WORLDSIZE
+        return find(x, y, root, false, worldSize / 2, worldSize / 2, worldSize
             / 4);
     }
 
@@ -399,6 +403,12 @@ public class CityTree {
 
     /**
      * Remove a node with the given coordinates
+     *
+     * @param x
+     *            Given x coordinate
+     * @param y
+     *            Given y coordinate
+     * @return boolean on success
      */
     public boolean remove(int x, int y) {
         City temp = find(x, y);
@@ -406,7 +416,7 @@ public class CityTree {
             return false;
         }
         size--;
-        remove(root, x, y, false, WORLDSIZE / 2, WORLDSIZE / 2, WORLDSIZE / 4);
+        remove(root, x, y, false, worldSize / 2, worldSize / 2, worldSize / 4);
         return true;
     }
 
@@ -485,7 +495,7 @@ public class CityTree {
      */
     public String printTree() {
         // want to remove the new line character that isn't needed
-        String tmp = printNode(root, 0, 0, 0, WORLDSIZE, WORLDSIZE);
+        String tmp = printNode(root, 0, 0, 0, worldSize, worldSize);
         return tmp.substring(0, tmp.length() - 1);
     }
 

@@ -73,8 +73,6 @@ public class SearchResult {
 
     /**
      * This returns the number of nodes visited
-     * 
-     * @return int of nodes visited
      */
     public void nodeVisit() {
         nodesVisited++;
