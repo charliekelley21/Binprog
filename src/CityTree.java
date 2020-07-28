@@ -515,8 +515,11 @@ public class CityTree {
         int w,
         int h) {
         String str = new String(new char[level * 2]).replace("\0", " ");
+        if (level == 0) {
+            str = "";
+        }
         if (rt.isLeaf()) {
-            if (rt == flyWeight) {
+            if (rt.value() == null) {
                 str += String.format("E, %d, %d, %d, %d\n", x, y, w, h);
             }
             else {
