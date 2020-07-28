@@ -267,7 +267,7 @@ public class CityTree {
         if (root.isLeaf()) {
             // check if we are at valid leaf
             if (root != flyWeight) {
-                City temp = ((LeafNode<City>)root).value();
+                City temp = root.value();
                 if (temp.getX() >= x && temp.getX() <= x + w && temp.getY() >= y
                     && temp.getY() <= y + h) {
                     search.insert(temp);
@@ -275,8 +275,6 @@ public class CityTree {
             }
         }
         else {
-            InternalNode<City> temp = (InternalNode<City>)root;
-
             if (splitY) {
                 // three cases:
                 // region's y strictly greater than cut
@@ -284,33 +282,33 @@ public class CityTree {
                 // a punctured region where we need to traverse down left and
                 // right.
                 if (y >= ycut) {
-                    regionSearch(temp.right(), false, x, y, w, h, xcut, ycut
+                    regionSearch(root.right(), false, x, y, w, h, xcut, ycut
                         + splitdist, splitdist / 2);
                 }
                 else if (y + h <= ycut) {
-                    regionSearch(temp.left(), false, x, y, w, h, xcut, ycut
+                    regionSearch(root.left(), false, x, y, w, h, xcut, ycut
                         - splitdist, splitdist / 2);
                 }
                 else {
-                    regionSearch(temp.right(), false, x, y, w, h, xcut, ycut
+                    regionSearch(root.right(), false, x, y, w, h, xcut, ycut
                         + splitdist, splitdist / 2);
-                    regionSearch(temp.left(), false, x, y, w, h, xcut, ycut
+                    regionSearch(root.left(), false, x, y, w, h, xcut, ycut
                         - splitdist, splitdist / 2);
                 }
             }
             else {
                 if (x >= xcut) {
-                    regionSearch(temp.right(), true, x, y, w, h, xcut
+                    regionSearch(root.right(), true, x, y, w, h, xcut
                         + splitdist, ycut, splitdist);
                 }
                 else if (x + w <= xcut) {
-                    regionSearch(temp.left(), true, x, y, w, h, xcut
+                    regionSearch(root.left(), true, x, y, w, h, xcut
                         - splitdist, ycut, splitdist);
                 }
                 else {
-                    regionSearch(temp.right(), true, x, y, w, h, xcut
+                    regionSearch(root.right(), true, x, y, w, h, xcut
                         + splitdist, ycut, splitdist);
-                    regionSearch(temp.left(), true, x, y, w, h, xcut
+                    regionSearch(root.left(), true, x, y, w, h, xcut
                         - splitdist, ycut, splitdist);
                 }
             }
@@ -519,25 +517,23 @@ public class CityTree {
         int h) {
         String str = new String(new char[level * 2]).replace("\0", " ");
         if (rt.isLeaf()) {
-            LeafNode<City> leaf = (LeafNode<City>)rt;
-            if (leaf.value() == null) {
+            if (rt == flyWeight) {
                 str += String.format("E, %d, %d, %d, %d\n", x, y, w, h);
             }
             else {
-                str += leaf.value() + "\n";
+                str += rt.value() + "\n";
             }
         }
         else {
-            InternalNode<City> intern = (InternalNode<City>)rt;
             str += String.format("I, %d, %d, %d, %d\n", x, y, w, h);
             if (level % 2 == 0) { // split the X grid
-                return str + printNode(intern.left(), level + 1, x, y, w / 2, h)
-                    + printNode(intern.right(), level + 1, x + (w / 2), y, w
+                return str + printNode(rt.left(), level + 1, x, y, w / 2, h)
+                    + printNode(rt.right(), level + 1, x + (w / 2), y, w
                         / 2, h);
             }
             else { // split the Y grid
-                return str + printNode(intern.left(), level + 1, x, y, w, h / 2)
-                    + printNode(intern.right(), level + 1, x, y + (h / 2), w, h
+                return str + printNode(rt.left(), level + 1, x, y, w, h / 2)
+                    + printNode(rt.right(), level + 1, x, y + (h / 2), w, h
                         / 2);
             }
         }
