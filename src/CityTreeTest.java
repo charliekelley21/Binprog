@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import student.TestCase;
 
 /**
@@ -87,6 +88,52 @@ public class CityTreeTest extends TestCase {
 
 
     /**
+     * This will test the regionSearch method of CityTree
+     */
+    public void testRegionSearch() {
+        // null on empty CityTree
+        assertNull(test.regionSearch(0, 0, 0, 0));
+        test.insert(new City("Detriot", 20, 20));
+        // null on invalid parameters
+        assertNull(test.regionSearch(-1, 0, 0, 0));
+        assertNull(test.regionSearch(0, -1, 0, 0));
+        assertNull(test.regionSearch(2000, 0, 0, 0));
+        assertNull(test.regionSearch(0, 2000, 0, 0));
+        test.insert(new City("New York", 700, 700));
+        test.insert(new City("Boston", 1000, 20));
+        test.insert(new City("New York", 710, 700));
+        test.insert(new City("Ba Sing Se", 700, 710));
+        test.insert(new City("The Shire", 999, 45));
+        test.insert(new City("Cairo", 60, 16));
+        test.insert(new City("Vienna", 69, 420));
+        test.insert(new City("Amsterdam", 420, 69));
+        test.insert(new City("Frankfurt", 20, 111));
+        test.insert(new City("White Orchard", 21, 20));
+        assertEquals(3, test.regionSearch(700, 700, 500, 500).answers().length);
+        assertEquals(3, test.regionSearch(-100, -100, 200, 200)
+            .answers().length);
+
+        City[] ans = test.regionSearch(0, -100, 100, 200).answers();
+        String[] answers = new String[] { "Detriot 20 20",
+            "White Orchard 21 20", "Cairo 60 16" };
+        for (int i = 0; i < ans.length; i++) {
+            assertEquals(answers[i], ans[ans.length - 1 - i].toString());
+        }
+        assertNull(test.regionSearch(-100, -100, 20, 20));
+    }
+
+
+    /**
+     * This will test the regionSearch method of CityTree
+     */
+    public void testRegionSearchNodes() {
+        test.insert(new City("Blacksburg", 37, 80));
+        test.insert(new City("Ohama", 41, 96));
+        assertEquals(14, test.regionSearch(30, 70, 20, 50).nodesVisited());
+    }
+
+
+    /**
      * This method tests CityTree's print function
      */
     public void testPrint() {
@@ -97,23 +144,17 @@ public class CityTreeTest extends TestCase {
         test.insert(new City("Ba Sing Se", 700, 710));
 
         System.out.println(test.printTree());
-        assertEquals(multiline(
-            "I, 0, 0, 1024, 1024", 
-            "  Detriot 20 20",
-            "  I, 512, 0, 512, 1024", 
-            "    Boston 1000 20",
-            "    I, 512, 512, 512, 512", 
-            "      I, 512, 512, 256, 512",
-            "        I, 512, 512, 256, 256", 
-            "          E, 512, 512, 128, 256",
+        assertEquals(multiline("I, 0, 0, 1024, 1024", "  Detriot 20 20",
+            "  I, 512, 0, 512, 1024", "    Boston 1000 20",
+            "    I, 512, 512, 512, 512", "      I, 512, 512, 256, 512",
+            "        I, 512, 512, 256, 256", "          E, 512, 512, 128, 256",
             "          I, 640, 512, 128, 256",
             "            E, 640, 512, 128, 128",
             "            I, 640, 640, 128, 128",
             "              I, 640, 640, 64, 128",
             "                New York 700 700",
             "                Ba Sing Se 700 710",
-            "              New York 710 700", 
-            "        E, 512, 768, 256, 256",
+            "              New York 710 700", "        E, 512, 768, 256, 256",
             "      E, 768, 512, 256, 512"), systemOut().getHistory());
     }
 
@@ -131,7 +172,8 @@ public class CityTreeTest extends TestCase {
         assertEquals(0, test.length());
         assertNull(test.find(700, 700));
     }
-    
+
+
     /**
      * This method tests CityTree's remove method
      */
@@ -143,30 +185,28 @@ public class CityTreeTest extends TestCase {
         test.insert(new City("Ba Sing Se", 700, 710));
         assertEquals(test.length(), 4);
         System.out.println("\n" + test.printTree());
-        
+
         assertTrue(test.remove(710, 700)); // remove New York
         assertNull(test.find(710, 700));
         assertEquals(test.length(), 3);
         System.out.println("\n" + test.printTree());
-        
-        assertTrue(test.remove(20, 20));    // remove Detriot
+
+        assertTrue(test.remove(20, 20)); // remove Detriot
         assertNull(test.find(20, 20));
         assertEquals(test.length(), 2);
         System.out.println("\n" + test.printTree());
-        
-        assertTrue(test.remove(700, 710));    // remove Ba Sing Se
+
+        assertTrue(test.remove(700, 710)); // remove Ba Sing Se
         assertNull(test.find(700, 710));
         assertEquals(test.length(), 1);
         System.out.println("\n" + test.printTree());
-        
-        assertTrue(test.remove(1000, 20));    // remove Boston
+
+        assertTrue(test.remove(1000, 20)); // remove Boston
         assertNull(test.find(1000, 20));
         assertEquals(test.length(), 0);
         System.out.println("\n" + test.printTree());
-        
-        
-        
+
         assertFalse(test.remove(20, 20));
-        
+
     }
 }

@@ -12,6 +12,7 @@ public class SearchResult {
     // Setting up vars
     private City[] ans;
     private int nodesVisited;
+    private int index;
 
     /**
      * Constructor for SearchResult
@@ -21,6 +22,7 @@ public class SearchResult {
      */
     public SearchResult(int n) {
         ans = new City[n];
+        index = 0;
         nodesVisited = 0;
     }
 
@@ -36,6 +38,18 @@ public class SearchResult {
 
 
     /**
+     * Inserts a City into the SearchResult
+     * 
+     * @param c
+     *            City to be inserted
+     */
+    public void insert(City c) {
+        ans[index] = c;
+        index++;
+    }
+
+
+    /**
      * This returns the number of nodes visited
      * 
      * @return int of nodes visited
@@ -46,11 +60,23 @@ public class SearchResult {
 
 
     /**
+     * Removes all the items after index
+     */
+    public void snip() {
+        City[] tmp = new City[index];
+        for (int i = 0; i < tmp.length; i++) {
+            tmp[i] = ans[i];
+        }
+        ans = tmp;
+    }
+
+
+    /**
      * This returns the number of nodes visited
      * 
      * @return int of nodes visited
      */
-    public void setNodesVisited(int nodesVisited) {
-        this.nodesVisited = nodesVisited;
+    public void nodeVisit() {
+        nodesVisited++;
     }
 }

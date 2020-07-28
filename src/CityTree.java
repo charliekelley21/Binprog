@@ -13,6 +13,7 @@ public class CityTree {
     // Setting up local vars.
     private BaseNode<City> root;
     private LeafNode<City> flyWeight;
+    private SearchResult search;
     private int size;
     private final int WORLDSIZE = 1024;
 
@@ -206,10 +207,114 @@ public class CityTree {
      */
     public SearchResult regionSearch(int x, int y, int w, int h) {
         // find number of cities in range using helper method
-        int cityNum = 10;
-        SearchResult ans = new SearchResult(cityNum);
-        // use helper recursive method to solve for actual cityNum
-        return null;
+        // outside world size
+        if (x > WORLDSIZE || y > WORLDSIZE || x + w < 0 || y + h < 0
+            || size == 0) {
+            return null;
+        }
+        // fix parameters
+        if (x + w > WORLDSIZE) {
+            w = WORLDSIZE - x;
+        }
+        if (y + h > WORLDSIZE) {
+            h = WORLDSIZE - y;
+        }
+        if (x < 0) {
+            w = w + x;
+            x = 0;
+        }
+        if (y < 0) {
+            h = h + y;
+            y = 0;
+        }
+        search = new SearchResult(size);
+        regionSearch(root, false, x, y, w, h, WORLDSIZE / 2, WORLDSIZE / 2,
+            WORLDSIZE / 4);
+        search.snip();
+        return search;
+    }
+
+
+    /**
+     * This searches for what cities are in a given range and returns a
+     * SearchResult based on this nodes it visited and the Cities it visited
+     * 
+     * @param root
+     *            current node we are searching through
+     * @param x
+     *            specifies the smallest x coordinate
+     * @param y
+     *            specifies the smallest y coordinate
+     * @param w
+     *            specifies the width, such that the largest x coordinate is x +
+     *            w
+     * @param h
+     *            specifies the height, such that the largest y coordinate is y
+     *            + h
+     */
+    private void regionSearch(
+        BaseNode<City> root,
+        boolean splitY,
+        int x,
+        int y,
+        int w,
+        int h,
+        int xcut,
+        int ycut,
+        int splitdist) {
+        // base case
+        search.nodeVisit();
+        if (root.isLeaf()) {
+            // check if we are at valid leaf
+            if (root != flyWeight) {
+                City temp = ((LeafNode<City>)root).value();
+                if (temp.getX() >= x && temp.getX() <= x + w && temp.getY() >= y
+                    && temp.getY() <= y + h) {
+                    search.insert(temp);
+                }
+            }
+        }
+        else {
+            InternalNode<City> temp = (InternalNode<City>)root;
+
+            if (splitY) {
+                // three cases:
+                // region's y strictly greater than cut
+                // region's right corner strictly less
+                // a punctured region where we need to traverse down left and
+                // right.
+                if (y >= ycut) {
+                    regionSearch(temp.right(), false, x, y, w, h, xcut, ycut
+                        + splitdist, splitdist / 2);
+                }
+                else if (y + h <= ycut) {
+                    regionSearch(temp.left(), false, x, y, w, h, xcut, ycut
+                        - splitdist, splitdist / 2);
+                }
+                else {
+                    regionSearch(temp.right(), false, x, y, w, h, xcut, ycut
+                        + splitdist, splitdist / 2);
+                    regionSearch(temp.left(), false, x, y, w, h, xcut, ycut
+                        - splitdist, splitdist / 2);
+                }
+            }
+            else {
+                if (x >= xcut) {
+                    regionSearch(temp.right(), true, x, y, w, h, xcut
+                        + splitdist, ycut, splitdist);
+                }
+                else if (x + w <= xcut) {
+                    regionSearch(temp.left(), true, x, y, w, h, xcut
+                        - splitdist, ycut, splitdist);
+                }
+                else {
+                    regionSearch(temp.right(), true, x, y, w, h, xcut
+                        + splitdist, ycut, splitdist);
+                    regionSearch(temp.left(), true, x, y, w, h, xcut
+                        - splitdist, ycut, splitdist);
+                }
+            }
+        }
     }
 
 
@@ -438,5 +543,4 @@ public class CityTree {
         }
         return str;
     }
-
 }
