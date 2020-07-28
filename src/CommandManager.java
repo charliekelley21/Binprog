@@ -51,15 +51,19 @@ public class CommandManager {
                 ans = new String[cities.length + 2];
                 ans[0] = ">" + command;
                 for (int i = 0; i < cities.length; i++) {
-                    ans[i + 1] = cities[i].toString();
+                    // need special string formatting, true for reverse, false
+                    // for commas
+                    ans[i + 1] = cities[i].toString(true, false);
                 }
-                ans[ans.length - 1] = String.format("%d Nodes visited.", sr.nodesVisited());
+                ans[ans.length - 1] = String.format("%d Nodes visited.", sr
+                    .nodesVisited());
                 break;
             case "print":
                 ans[1] = ctr.printTree();
                 break;
             default:
-                ans[1] = "ERROR! Unrecognized command: I am the very model of a modern Major-General";
+                ans[1] =
+                    "ERROR! Unrecognized command: I am the very model of a modern Major-General";
         }
         return ans;
     }

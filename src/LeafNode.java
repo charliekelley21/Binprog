@@ -45,12 +45,12 @@ public class LeafNode<E> implements BaseNode<E> {
 
 
     public void setLeft(BaseNode<E> newLeft) { // raise exception
-        throw new NoSuchElementException("LeafNode: no children exsist for a given LeafNode");
+        throw new NoSuchElementException("LeafNode: no children exist for a given LeafNode");
     }
 
 
     public void setRight(BaseNode<E> newRight) {
-        throw new NoSuchElementException("LeafNode: no children exsist for a given LeafNode");
+        throw new NoSuchElementException("LeafNode: no children exist for a given LeafNode");
     }
 
 }

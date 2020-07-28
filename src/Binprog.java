@@ -30,11 +30,9 @@ public class Binprog {
             String[] lines = parse.readTextFile();
             for (int i = 0; i < lines.length; i++) {
                 String[] toPrint = CM.evaluate(lines[i]);
-                if (toPrint != null) {
-                    for (int j = 0; j < toPrint.length; j++) {
-                        if (toPrint[j] != "") {
-                            System.out.println(toPrint[j]);
-                        }
+                for (int j = 0; j < toPrint.length; j++) {
+                    if (toPrint[j] != "") {
+                        System.out.println(toPrint[j]);
                     }
                 }
             }

@@ -523,15 +523,15 @@ public class CityTree {
                 str += String.format("E, %d, %d, %d, %d\n", x, y, w, h);
             }
             else {
-                str += rt.value() + "\n";
+                str += rt.value().toString(false, true) + "\n";
             }
         }
         else {
             str += String.format("I, %d, %d, %d, %d\n", x, y, w, h);
             if (level % 2 == 0) { // split the X grid
                 return str + printNode(rt.left(), level + 1, x, y, w / 2, h)
-                    + printNode(rt.right(), level + 1, x + (w / 2), y, w
-                        / 2, h);
+                    + printNode(rt.right(), level + 1, x + (w / 2), y, w / 2,
+                        h);
             }
             else { // split the Y grid
                 return str + printNode(rt.left(), level + 1, x, y, w, h / 2)

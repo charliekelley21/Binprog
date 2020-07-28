@@ -82,4 +82,14 @@ public class CityTest extends TestCase {
         assertEquals("Apple_town 250 420", test2.toString());
     }
 
+
+    /**
+     * This will test the toString(reverse) method
+     */
+    public void testToStringR() {
+        assertEquals("500 200 Hello_town", test1.toString(true, false));
+        assertEquals("Apple_town 250 420", test2.toString(false, false));
+        assertEquals("500, 200, Hello_town", test1.toString(true, true));
+        assertEquals("Apple_town, 250, 420", test2.toString(false, true));
+    }
 }

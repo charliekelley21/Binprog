@@ -1,4 +1,3 @@
-import java.util.NoSuchElementException;
 import student.TestCase;
 
 /**
@@ -35,18 +34,19 @@ public class InternalNodeTest extends TestCase {
 
 
     /**
-     * test that a InternalNode's left and right methods 
+     * test that a InternalNode's left and right methods
      */
     public void testChildrenOfInternal() {
         InternalNode<String> s = new InternalNode<String>();
         InternalNode<String> l = new InternalNode<String>();
         InternalNode<String> r = new InternalNode<String>();
         s.setRight(r);
-        s.setLeft(l);        
+        s.setLeft(l);
         assertEquals(l, s.left());
         assertEquals(r, s.right());
     }
-    
+
+
     /**
      * test that InternalNode class does not contain a value
      */
