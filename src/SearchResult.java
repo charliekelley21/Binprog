@@ -65,7 +65,7 @@ public class SearchResult {
     public void snip() {
         City[] tmp = new City[index];
         for (int i = 0; i < tmp.length; i++) {
-            tmp[i] = ans[i];
+            tmp[tmp.length - 1 - i] = ans[i];
         }
         ans = tmp;
     }

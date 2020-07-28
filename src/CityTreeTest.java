@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import student.TestCase;
 
 /**
@@ -117,7 +116,7 @@ public class CityTreeTest extends TestCase {
         String[] answers = new String[] { "Detriot 20 20",
             "White Orchard 21 20", "Cairo 60 16" };
         for (int i = 0; i < ans.length; i++) {
-            assertEquals(answers[i], ans[ans.length - 1 - i].toString());
+            assertEquals(answers[i], ans[i].toString());
         }
         assertNull(test.regionSearch(-100, -100, 20, 20));
     }
