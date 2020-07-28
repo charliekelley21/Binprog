@@ -25,7 +25,7 @@ public class BinprogTest extends TestCase {
             "Record could not be printed.  It does not exist.",
             ">remove 38 122", "Record could not be removed. It does not exist.",
             ">find 41 96", "Omaha 41 96", ">regionsearch 30 70 20 50",
-            "37 80 Blacksburg", "41 96 Omaha", "14 Nodes visited.", ">print",
+            "37 80 Blacksburg", "41 96 Omaha", "13 Nodes visited.", ">print",
             "I, 0, 0, 1024, 1024", "  I, 0, 0, 512, 1024",
             "    I, 0, 0, 512, 512", "      I, 0, 0, 256, 512",
             "        I, 0, 0, 256, 256", "          I, 0, 0, 128, 256",
