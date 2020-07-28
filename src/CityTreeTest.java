@@ -129,7 +129,7 @@ public class CityTreeTest extends TestCase {
     public void testRegionSearchNodes() {
         test.insert(new City("Blacksburg", 37, 80));
         test.insert(new City("Ohama", 41, 96));
-        assertEquals(14, test.regionSearch(30, 70, 20, 50).nodesVisited());
+        assertEquals(13, test.regionSearch(30, 70, 20, 50).nodesVisited());
     }
 
 
