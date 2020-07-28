@@ -32,7 +32,9 @@ public class Binprog {
                 String[] toPrint = CM.evaluate(lines[i]);
                 if (toPrint != null) {
                     for (int j = 0; j < toPrint.length; j++) {
-                        System.out.println(toPrint[j]);
+                        if (toPrint[j] != "") {
+                            System.out.println(toPrint[j]);
+                        }
                     }
                 }
             }

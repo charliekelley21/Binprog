@@ -424,7 +424,6 @@ public class CityTree {
             return flyWeight;
         }
         // else traverse the internal node
-
         // see insert comments for decision making
         if (splitY) {
             if (y >= ycut) {
@@ -449,10 +448,10 @@ public class CityTree {
         // In the case that an internal node must be removed to remove a
         // partition in the grid then we must find the value to replace to
         // internal node with.
-        if (rt.left() == flyWeight) {
+        if (rt.left() == flyWeight && rt.right().isLeaf()) {
             rt = rt.right();
         }
-        else if (rt.right() == flyWeight) {
+        else if (rt.right() == flyWeight && rt.left().isLeaf()) {
             rt = rt.left();
         }
         // unwind the recursion and return the rt node
@@ -516,8 +515,11 @@ public class CityTree {
         int w,
         int h) {
         String str = new String(new char[level * 2]).replace("\0", " ");
+        if (level == 0) {
+            str = "";
+        }
         if (rt.isLeaf()) {
-            if (rt == flyWeight) {
+            if (rt.value() == null) {
                 str += String.format("E, %d, %d, %d, %d\n", x, y, w, h);
             }
             else {

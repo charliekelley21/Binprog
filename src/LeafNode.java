@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 /**
  * The class representing the leaf Nodes of CityTree
  * 
@@ -30,22 +32,25 @@ public class LeafNode<E> implements BaseNode<E> {
     public void setValue(E it) {
         v = it;
     }
-    
+
+
     public BaseNode<E> left() {
         return null;
     }
-    
+
+
     public BaseNode<E> right() {
         return null;
     }
-    
+
+
     public void setLeft(BaseNode<E> newLeft) { // raise exception
-        return;
+        throw new NoSuchElementException("LeafNode: no children exsist for a given LeafNode");
     }
 
 
     public void setRight(BaseNode<E> newRight) {
-        return;
+        throw new NoSuchElementException("LeafNode: no children exsist for a given LeafNode");
     }
 
 }
