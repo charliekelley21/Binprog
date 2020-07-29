@@ -22,9 +22,9 @@ public class CommandManager {
             case "insert":
                 x = Integer.parseInt(cmd[1]);
                 y = Integer.parseInt(cmd[2]);
-                ans[1] = (ctr.insert(new City(x, y, cmd[3])))
+                ans[1] = (ctr.insert(new City( cmd[3], x, y)))
                     ? ""
-                    : "Record could not be inserted.  Location already exsists.";
+                    : "Record could not be inserted. Invalid location.";
                 break;
             case "remove":
                 x = Integer.parseInt(cmd[1]);
@@ -47,13 +47,17 @@ public class CommandManager {
                 int w = Integer.parseInt(cmd[3]);
                 int h = Integer.parseInt(cmd[4]);
                 SearchResult sr = ctr.regionSearch(x, y, w, h);
+                if (sr == null) {
+                    ans[1] = "The specified region is outside the known world.";
+                    return ans;
+                }
                 City[] cities = sr.answers();
                 ans = new String[cities.length + 2];
                 ans[0] = ">" + command;
                 for (int i = 0; i < cities.length; i++) {
                     // need special string formatting, true for reverse, false
                     // for commas
-                    ans[i + 1] = cities[i].toString(true, false);
+                    ans[i + 1] = cities[i].toString();
                 }
                 ans[ans.length - 1] = String.format("%d Nodes visited.", sr
                     .nodesVisited());
@@ -63,8 +67,19 @@ public class CommandManager {
                 break;
             default:
                 ans[1] =
-                    "ERROR! Unrecognized command: I am the very model of a modern Major-General";
+                    "ERROR! Unrecognized command: " + command;
         }
         return ans;
+    }
+
+
+    /**
+     * Returns the internal cityTree of the CommandManager. Helper method for
+     * testing the CommandManager class
+     * 
+     * @return internal CItyTree
+     */
+    public CityTree getTree() {
+        return ctr;
     }
 }

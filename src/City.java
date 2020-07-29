@@ -104,29 +104,4 @@ public class City {
     public String toString() {
         return String.format("%s %d %d", cityName, x, y);
     }
-
-
-    /**
-     * A standard toString method for the City object.
-     * 
-     * @param reverse
-     *            depicts whether coordinates are first or not.
-     * @param commas
-     *            depicts whether commas or not
-     * @return String a String representation of the city obj.
-     */
-    public String toString(boolean reverse, boolean commas) {
-        if (reverse && commas) {
-            return String.format("%d, %d, %s", x, y, cityName);
-        }
-        else if (reverse) {
-            return String.format("%d %d %s", x, y, cityName);
-        }
-        else if (commas) {
-            return String.format("%s, %d, %d", cityName, x, y);
-        }
-        else {
-            return toString();
-        }
-    }
 }

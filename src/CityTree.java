@@ -533,7 +533,7 @@ public class CityTree {
                 str += String.format("E, %d, %d, %d, %d\n", x, y, w, h);
             }
             else {
-                str += rt.value().toString(false, true) + "\n";
+                str += rt.value().toString() + "\n";
             }
         }
         else {
