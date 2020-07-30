@@ -88,6 +88,9 @@ public class LeafNode<E> implements BaseNode<E> {
 
     /**
      * Throws an error for LeafNodes have no children
+     * 
+     * @param newRight
+     *            filler for error checking function
      */
     public void setLeft(BaseNode<E> newLeft) {
         throw new NoSuchElementException(
@@ -97,6 +100,9 @@ public class LeafNode<E> implements BaseNode<E> {
 
     /**
      * Throws an error for LeafNodes have no children
+     * 
+     * @param newRight
+     *            filler for error checking function
      */
     public void setRight(BaseNode<E> newRight) {
         throw new NoSuchElementException(

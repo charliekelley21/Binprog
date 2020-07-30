@@ -71,7 +71,7 @@ public class InternalNode<E> implements BaseNode<E> {
     /**
      * Sets the left node for this InternalNode
      * 
-     * @param BaseNode<E>
+     * @param newLeft
      *            The left child of this node
      */
     public void setLeft(BaseNode<E> newLeft) {
@@ -82,7 +82,7 @@ public class InternalNode<E> implements BaseNode<E> {
     /**
      * Sets the right node for this InternalNode
      * 
-     * @param BaseNode<E>
+     * @param newRight
      *            The right child of this node
      */
     public void setRight(BaseNode<E> newRight) {
