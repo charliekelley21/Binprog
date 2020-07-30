@@ -80,6 +80,7 @@ public class CommandManager {
                 break;
             default:
                 ans[1] = "ERROR! Unrecognized command: " + command;
+                break;
         }
         return ans;
     }
