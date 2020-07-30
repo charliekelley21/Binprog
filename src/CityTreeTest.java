@@ -108,6 +108,7 @@ public class CityTreeTest extends TestCase {
         test.insert(new City("Amsterdam", 420, 69));
         test.insert(new City("Frankfurt", 20, 111));
         test.insert(new City("Blacksburg", 100, 100));
+        test.insert(new City("Blacksburg", 101, 100));
         test.insert(new City("Washington", 0, 0));
         test.insert(new City("White Orchard", 21, 20));
         assertEquals(3, test.regionSearch(700, 700, 500, 500).answers().length);
@@ -116,7 +117,7 @@ public class CityTreeTest extends TestCase {
 
         City[] ans = test.regionSearch(0, -100, 100, 200).answers();
         String[] answers = new String[] { "Washington 0 0", "Detriot 20 20",
-            "White Orchard 21 20", "Cairo 60 16", "Blacksburg 100 100", };
+            "White Orchard 21 20", "Cairo 60 16", "Blacksburg 100 100" };
         for (int i = 0; i < ans.length; i++) {
             assertEquals(answers[i], ans[i].toString());
         }

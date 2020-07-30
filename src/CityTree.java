@@ -248,7 +248,7 @@ public class CityTree {
             // check if we are at valid leaf
             if (rt != flyWeight) {
                 City temp = rt.value();
-                // just because we are at a leaf node doesn't guarentee we are
+                // just because we are at a leaf node doesn't guarantee we are
                 // in the range
                 if (temp.getX() >= x && temp.getX() <= x + w && temp.getY() >= y
                     && temp.getY() <= y + h) {
@@ -263,11 +263,11 @@ public class CityTree {
                 // region's right corner strictly less
                 // a punctured region where we need to traverse down left and
                 // right.
-                if (y >= ycut) {
+                if (y > ycut) {
                     regionSearch(rt.right(), false, x, y, w, h, xcut, ycut
                         + splitdist, splitdist / 2);
                 }
-                else if (y + h <= ycut) {
+                else if (y + h < ycut) {
                     regionSearch(rt.left(), false, x, y, w, h, xcut, ycut
                         - splitdist, splitdist / 2);
                 }
@@ -279,11 +279,11 @@ public class CityTree {
                 }
             }
             else {
-                if (x >= xcut) {
+                if (x > xcut) {
                     regionSearch(rt.right(), true, x, y, w, h, xcut + splitdist,
                         ycut, splitdist);
                 }
-                else if (x + w <= xcut) {
+                else if (x + w < xcut) {
                     regionSearch(rt.left(), true, x, y, w, h, xcut - splitdist,
                         ycut, splitdist);
                 }
