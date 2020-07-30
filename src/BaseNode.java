@@ -36,7 +36,8 @@ public interface BaseNode<E> {
     /**
      * This is going to set the left node of BaseNode
      * 
-     * @return BaseNode's left node
+     * @param newLeft
+     *            node to set left child equal to
      */
     public void setLeft(BaseNode<E> newLeft);
 
@@ -44,7 +45,8 @@ public interface BaseNode<E> {
     /**
      * This is going to set the right node of BaseNode
      * 
-     * @return BaseNode's right node
+     * @param newRight
+     *            node to set right child equal to
      */
     public void setRight(BaseNode<E> newRight);
 
