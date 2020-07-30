@@ -8,21 +8,34 @@
 public class CommandManager {
     private CityTree ctr;
 
+    /**
+     * constructor for the CommandManager class. initializes an empty tree.
+     */
     CommandManager() {
         ctr = new CityTree();
     }
 
 
+    /**
+     * Evaluates a command from an input file and utilizes the internal CityTree
+     * to store city information.
+     * 
+     * @param command
+     *            command to be evaluated
+     * @return a string array of the CommandManager's script response to a given
+     *         command
+     */
     public String[] evaluate(String command) {
         String[] ans = new String[2];
         ans[0] = ">" + command;
         String[] cmd = command.split(" ");
-        int x, y;
+        int x;
+        int y;
         switch (cmd[0]) {
             case "insert":
                 x = Integer.parseInt(cmd[1]);
                 y = Integer.parseInt(cmd[2]);
-                ans[1] = (ctr.insert(new City( cmd[3], x, y)))
+                ans[1] = (ctr.insert(new City(cmd[3], x, y)))
                     ? ""
                     : "Record could not be inserted. Invalid location.";
                 break;
@@ -66,8 +79,7 @@ public class CommandManager {
                 ans[1] = ctr.printTree();
                 break;
             default:
-                ans[1] =
-                    "ERROR! Unrecognized command: " + command;
+                ans[1] = "ERROR! Unrecognized command: " + command;
         }
         return ans;
     }

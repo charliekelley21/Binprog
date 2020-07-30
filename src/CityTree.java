@@ -421,6 +421,27 @@ public class CityTree {
     }
 
 
+    /**
+     * Internal remove method for CityTree. removes a given city from the tree
+     * recursively.
+     * 
+     * @param rt
+     *            root node
+     * @param x
+     *            X coordinate to remove
+     * @param y
+     *            Y coordinate to remove
+     * @param splitY
+     *            boolean true if this level splits in the y direction
+     * @param xcut
+     *            distance of current grid in the X direction
+     * @param ycut
+     *            distance of current grid in the Y direction
+     * @param splitdist
+     *            distance to split the current grid
+     * @return the node to replace itself within the tree. used to recursively
+     *         modify the CityTree class
+     */
     private BaseNode<City> remove(
         BaseNode<City> rt,
         int x,
