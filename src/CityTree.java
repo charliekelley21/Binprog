@@ -272,6 +272,8 @@ public class CityTree {
             // check if we are at valid leaf
             if (rt != flyWeight) {
                 City temp = rt.value();
+                // just because we are at a leaf node doesn't guarentee we are
+                // in the range
                 if (temp.getX() >= x && temp.getX() <= x + w && temp.getY() >= y
                     && temp.getY() <= y + h) {
                     search.insert(temp);

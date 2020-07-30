@@ -97,22 +97,17 @@ public class InputParser {
     private String properSpacing(String unformatted) {
         char[] tocopy = unformatted.toCharArray();
         char[] answer = new char[tocopy.length];
-        boolean addspace = false;
         int location = 0;
         for (int i = 0; i < tocopy.length; i++) {
             // copies chars to new array
             if (tocopy[i] != ' ') {
-                addspace = true;
                 answer[location] = tocopy[i];
                 location++;
             }
             else {
-                if (addspace) {
-                    // adds one space after a segment of chars
-                    answer[location] = ' ';
-                    location++;
-                    addspace = false;
-                }
+                // adds one space after a segment of chars
+                answer[location] = ' ';
+                location++;
             }
         }
         // converts to string and gets rid of leading and following spaces
