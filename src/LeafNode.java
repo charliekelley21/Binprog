@@ -4,16 +4,20 @@ import java.util.NoSuchElementException;
  * The class representing the leaf Nodes of CityTree
  * 
  * @author Charlie Kelley (charlk21)
+ * @param <E>
+ *            The type of info stored in the LeafNode
  * @version 2020.07.25
  * 
  * @param <E>
  *            variable type to be stored in InternalNode
  */
 public class LeafNode<E> implements BaseNode<E> {
+
+    // Setting up vars
     private E v;
 
     /**
-     * Default constructor for the leafNode class
+     * Public null constructor for LeafNode
      */
     LeafNode() {
         v = null;
@@ -21,10 +25,10 @@ public class LeafNode<E> implements BaseNode<E> {
 
 
     /**
-     * Constructor for LeafNode class. Stores given value in the LeafNode.
+     * Constructor for LeafNode with a value
      * 
      * @param newValue
-     *            value to be stored in the LeafNode
+     *            The new value of LeafNode
      */
     LeafNode(E newValue) {
         v = newValue;
@@ -32,9 +36,9 @@ public class LeafNode<E> implements BaseNode<E> {
 
 
     /**
-     * Reveals that a given node is a LeafNode
+     * Checks if LeafNode
      * 
-     * @return true
+     * @return boolean on whether a LeafNode or not.
      */
     public boolean isLeaf() {
         return true;
@@ -42,9 +46,9 @@ public class LeafNode<E> implements BaseNode<E> {
 
 
     /**
-     * Return the value stored in the LeafNode
+     * Returns the value of LeafNode
      * 
-     * @return value of LeafNode
+     * @return E the value of the LeafNode
      */
     public E value() {
         return v;
@@ -52,10 +56,10 @@ public class LeafNode<E> implements BaseNode<E> {
 
 
     /**
-     * Set a new value for a LeafNode
+     * Sets the Value of the LeafNode
      * 
      * @param it
-     *            new value to be stored
+     *            the new value of the LeafNode
      */
     public void setValue(E it) {
         v = it;
@@ -63,9 +67,9 @@ public class LeafNode<E> implements BaseNode<E> {
 
 
     /**
-     * This is going to be the left node of the BaseNode
+     * LeafNodes contain no left node so this returns null
      * 
-     * @return BaseNode's left node
+     * @return BaseNode<E> null for LeafNodes have no children
      */
     public BaseNode<E> left() {
         return null;
@@ -73,9 +77,9 @@ public class LeafNode<E> implements BaseNode<E> {
 
 
     /**
-     * This is going to be the right node of the BaseNode
+     * LeafNodes contain no right node so this returns null
      * 
-     * @return BaseNode's right node
+     * @return BaseNode<E> null for LeafNodes have no children
      */
     public BaseNode<E> right() {
         return null;
@@ -83,11 +87,7 @@ public class LeafNode<E> implements BaseNode<E> {
 
 
     /**
-     * Set the left child of LeafNode node to a new pointer. Throws an exception
-     * because the LeafNode class does not store pointers.
-     * 
-     * @param newLeft
-     *            new left child to replace current pointer
+     * Throws an error for LeafNodes have no children
      */
     public void setLeft(BaseNode<E> newLeft) {
         throw new NoSuchElementException(
@@ -96,12 +96,7 @@ public class LeafNode<E> implements BaseNode<E> {
 
 
     /**
-     * Set the right child of LeafNode node to a new pointer. Throws an
-     * exception
-     * because the LeafNode class does not store pointers.
-     * 
-     * @param newRight
-     *            new right child to replace current pointer
+     * Throws an error for LeafNodes have no children
      */
     public void setRight(BaseNode<E> newRight) {
         throw new NoSuchElementException(

@@ -2,22 +2,26 @@
  * The class representing the internal Nodes of CityTree
  * 
  * @author Charlie Kelley (charlk21)
+ * @param <E>
+ *            The type of info stored in the InternalNode
  * @version 2020.07.25
  * 
  * @param <E>
  *            variable type to be stored in InternalNode
  */
 public class InternalNode<E> implements BaseNode<E> {
+
+    // setting up vars
     private BaseNode<E> left;
     private BaseNode<E> right;
 
     /**
-     * Constructor for an Internal node with given children
+     * The constructor for InternalNode with values
      * 
      * @param l
-     *            left child of new internal node
+     *            the left child
      * @param r
-     *            right child of new internal node
+     *            the right child
      */
     InternalNode(BaseNode<E> l, BaseNode<E> r) {
         left = l;
@@ -26,7 +30,7 @@ public class InternalNode<E> implements BaseNode<E> {
 
 
     /**
-     * Default constructor for the InternalNode class
+     * The null constructor for the InternalNode
      */
     InternalNode() {
         left = null;
@@ -35,9 +39,9 @@ public class InternalNode<E> implements BaseNode<E> {
 
 
     /**
-     * Check if the current node is a LeafNode
+     * InternalNode cannot be a leaf node
      * 
-     * @return returns false
+     * @return boolean on whether leaf node or not
      */
     public boolean isLeaf() {
         return false;
@@ -45,9 +49,9 @@ public class InternalNode<E> implements BaseNode<E> {
 
 
     /**
-     * Return the left child of the InternalNode
+     * Returns the left node of this InternalNode
      * 
-     * @return left child
+     * @return BaseNode<E> The left child of this node
      */
     public BaseNode<E> left() {
         return this.left;
@@ -55,9 +59,9 @@ public class InternalNode<E> implements BaseNode<E> {
 
 
     /**
-     * Return the right child of the InternalNode
+     * Returns the right node of this InternalNode
      * 
-     * @return right child
+     * @return BaseNode<E> The right child of this node
      */
     public BaseNode<E> right() {
         return this.right;
@@ -65,10 +69,10 @@ public class InternalNode<E> implements BaseNode<E> {
 
 
     /**
-     * Set the left child of Internal node to a new pointer
+     * Sets the left node for this InternalNode
      * 
-     * @param newLeft
-     *            new left child to replace current pointer
+     * @param BaseNode<E>
+     *            The left child of this node
      */
     public void setLeft(BaseNode<E> newLeft) {
         this.left = newLeft;
@@ -76,10 +80,10 @@ public class InternalNode<E> implements BaseNode<E> {
 
 
     /**
-     * Set the right child of Internal node to a new pointer
+     * Sets the right node for this InternalNode
      * 
-     * @param newright
-     *            new right child to replace current pointer
+     * @param BaseNode<E>
+     *            The right child of this node
      */
     public void setRight(BaseNode<E> newRight) {
         this.right = newRight;
@@ -87,12 +91,12 @@ public class InternalNode<E> implements BaseNode<E> {
 
 
     /**
-     * return the value stored in an internal node which is always empty
+     * This returns the value of the InternalNode
      * 
-     * @return null value
+     * @return E this will always be null, for we are not storing info in the
+     *         InternalNode
      */
     public E value() {
         return null;
     }
-
 }

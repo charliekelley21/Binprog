@@ -13,9 +13,11 @@ public class BinprogTest extends TestCase {
     /**
      * Test the main method
      */
+    @SuppressWarnings("static-access")
     public void testMain() {
+        Binprog test = new Binprog();
         try {
-            Binprog.main(new String[] { "src/test/P2InputSample.txt" });
+            test.main(new String[] { "src/test/P2InputSample.txt" });
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
