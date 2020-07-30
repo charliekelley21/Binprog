@@ -97,6 +97,12 @@ public class CityTree {
         int ycut,
         int splitdist) {
 
+        // if no nodes in tree reassign root and return true
+        if (this.length() == 0) {
+            root = new LeafNode<City>(newCity);
+            return true;
+        }
+
         // test if root is leaf
         if (rt.isLeaf()) {
             // if flyweight
@@ -112,13 +118,6 @@ public class CityTree {
                 return true;
             }
             else {
-                // could potentially be the this.root node
-                // if empty and root, we would like to simply reassign
-                if (rt == root && size == 0) {
-                    root = new LeafNode<City>(newCity);
-                    return true;
-                }
-
                 // we have a filled leaf node
                 // if the filled leaf node has equal coords to newCity return
                 // false if not equal we need to change the leafnode to a
