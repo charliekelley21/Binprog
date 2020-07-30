@@ -89,7 +89,7 @@ public class LeafNode<E> implements BaseNode<E> {
     /**
      * Throws an error for LeafNodes have no children
      * 
-     * @param newRight
+     * @param newLeft
      *            filler for error checking function
      */
     public void setLeft(BaseNode<E> newLeft) {
