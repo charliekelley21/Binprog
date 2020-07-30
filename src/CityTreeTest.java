@@ -107,16 +107,14 @@ public class CityTreeTest extends TestCase {
         test.insert(new City("Vienna", 69, 420));
         test.insert(new City("Amsterdam", 420, 69));
         test.insert(new City("Frankfurt", 20, 111));
-        test.insert(new City("Blacksburg", 100, 100));
-        test.insert(new City("Washington", 0, 0));
         test.insert(new City("White Orchard", 21, 20));
         assertEquals(3, test.regionSearch(700, 700, 500, 500).answers().length);
-        assertEquals(5, test.regionSearch(-100, -100, 200, 200)
+        assertEquals(3, test.regionSearch(-100, -100, 200, 200)
             .answers().length);
 
         City[] ans = test.regionSearch(0, -100, 100, 200).answers();
-        String[] answers = new String[] { "Washington 0 0", "Detriot 20 20",
-            "White Orchard 21 20", "Cairo 60 16", "Blacksburg 100 100", };
+        String[] answers = new String[] { "Detriot 20 20",
+            "White Orchard 21 20", "Cairo 60 16" };
         for (int i = 0; i < ans.length; i++) {
             assertEquals(answers[i], ans[i].toString());
         }
@@ -145,17 +143,22 @@ public class CityTreeTest extends TestCase {
         test.insert(new City("Ba Sing Se", 700, 710));
 
         System.out.println(test.printTree());
-        assertEquals(multiline("I, 0, 0, 1024, 1024", "  Detriot 20 20",
-            "  I, 512, 0, 512, 1024", "    Boston 1000 20",
-            "    I, 512, 512, 512, 512", "      I, 512, 512, 256, 512",
-            "        I, 512, 512, 256, 256", "          E, 512, 512, 128, 256",
+        assertEquals(multiline("I, 0, 0, 1024, 1024", 
+            "  Detriot 20 20",
+            "  I, 512, 0, 512, 1024", 
+            "    Boston 1000 20",
+            "    I, 512, 512, 512, 512", 
+            "      I, 512, 512, 256, 512",
+            "        I, 512, 512, 256, 256", 
+            "          E, 512, 512, 128, 256",
             "          I, 640, 512, 128, 256",
             "            E, 640, 512, 128, 128",
             "            I, 640, 640, 128, 128",
             "              I, 640, 640, 64, 128",
             "                New York 700 700",
             "                Ba Sing Se 700 710",
-            "              New York 710 700", "        E, 512, 768, 256, 256",
+            "              New York 710 700", 
+            "        E, 512, 768, 256, 256",
             "      E, 768, 512, 256, 512"), systemOut().getHistory());
     }
 

@@ -9,6 +9,7 @@ import student.TestCase;
  */
 public class BinprogTest extends TestCase {
 
+    
     /**
      * Test the main method
      */

@@ -22,7 +22,7 @@ public class CityTree {
      */
     public CityTree() {
         flyWeight = new LeafNode<City>();
-        root = new LeafNode<City>();
+        root = flyWeight;
         size = 0;
     }
 
@@ -30,7 +30,7 @@ public class CityTree {
     /**
      * This is the default one city information instantiation of CityTree
      * 
-     * @param City
+     * @param c
      *            An initial City to add to the CityTree
      */
     public CityTree(City c) {

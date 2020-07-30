@@ -96,5 +96,4 @@ public class InternalNode<E> implements BaseNode<E> {
     public E value() {
         return null;
     }
-
 }
