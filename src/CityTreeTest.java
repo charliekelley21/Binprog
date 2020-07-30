@@ -134,6 +134,16 @@ public class CityTreeTest extends TestCase {
         assertEquals(13, test.regionSearch(30, 70, 20, 50).nodesVisited());
     }
 
+    /**
+     * Tests the printing of an empty tree
+     */
+    public void testInsertTwoRemoveOne() {
+        test.insert(new City("Detriot", 20, 20));
+        test.insert(new City("New York", 700, 700));
+        test.remove(700,  700);
+        System.out.println(test.printTree());
+        assertEquals("Detriot 20 20\n", systemOut().getHistory());
+    }
 
     /**
      * This method tests CityTree's print function

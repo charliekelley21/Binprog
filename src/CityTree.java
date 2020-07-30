@@ -117,12 +117,10 @@ public class CityTree {
                 }
                 return true;
             }
-            else {
-                // we have a filled leaf node
-                // if the filled leaf node has equal coords to newCity return
-                // false if not equal we need to change the leafnode to a
-                // internalnode , give it two leafnode children, and call
-                // insert on both of the colliding nodes.
+            else { // filled Leaf: if (leaf's coords == newCity) {return false}
+                   // else { change to internal and call insert on both
+                   // colliding
+                   // nodes }
                 if (rt.value().getX() == newCity.getX() && rt.value()
                     .getY() == newCity.getY()) {
                     return false;
@@ -131,8 +129,7 @@ public class CityTree {
                 InternalNode<City> newInternalNode = new InternalNode<City>(
                     flyWeight, flyWeight);
 
-                // this new internal node must be linked to the last parent
-                // node, null implies the root must be switched to internal
+                // Link new internal to parent, null implies replace root
                 if (last == null) {
                     root = newInternalNode;
                 }
@@ -417,7 +414,8 @@ public class CityTree {
             return false;
         }
         size--;
-        remove(root, x, y, false, worldSize / 2, worldSize / 2, worldSize / 4);
+        root = remove(root, x, y, false, worldSize / 2, worldSize / 2, worldSize
+            / 4);
         return true;
     }
 
